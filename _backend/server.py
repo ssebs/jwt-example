@@ -1,0 +1,58 @@
+import json
+from flask import Flask, request, jsonify
+from flask_jwt_extended import JWTManager, jwt_required, create_access_token, get_jwt_identity
+
+# flask stuff
+app = Flask(__name__)
+app.config["JWT_SECRET_KEY"] = "<+jdeq.355Uuy9'!W*"
+jwt = JWTManager(app)
+
+# "DB" stuff
+current_db = []
+with open("db.json","r") as f:
+    current_db = json.loads(f.read())
+# print(current_db)
+
+def get_user(username):
+    for user in current_db["users"]:
+        if user["username"] == username:
+            return user
+
+def check_password(username, password):
+    for user in current_db["users"]:
+        if user["username"] == username:
+            return user["password"] == password
+
+
+
+# routes
+@app.route("/",methods=["GET"])
+def root():
+    return "test", 200
+
+@app.route("/protec", methods=["GET"])
+@jwt_required
+def protec():
+    return "This is secret!"
+
+@app.route("/login", methods=["POST"])
+def login():
+    if not request.json:
+        return jsonify({"Message": "No data sent"})
+    
+    username = request.json.get('username', None)
+    password = request.json.get('password', None)
+
+    if not username or not password:
+        return jsonify({"Message": "Fill out the form properly..."})
+
+    if not check_password(username, password):
+        return jsonify({"Message": "Bad password"})
+
+    token = create_access_token(identity=username)
+    return jsonify({"Token": token})
+
+
+# main
+if __name__ == "__main__":
+    app.run(debug=True, host="0.0.0.0")
