@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
-import { withRouter } from 'react-router-dom'
+import { withRouter } from "react-router-dom";
 
 const Login = props => {
     const [formContents, setFormContents] = useState({
@@ -48,7 +48,7 @@ const Login = props => {
                     );
                     // props.history.push("/")
                     // window.location.reload()
-                    window.location = "/"
+                    window.location = "/";
                 }
             })
             .catch(err => console.error(err));
