@@ -1,6 +1,12 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+
+import Protecc from "./Protecc";
 
 const Home = () => {
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {}, []);
+
     return (
         <div>
             <h1>Home</h1>
@@ -12,6 +18,12 @@ const Home = () => {
                 proident fugiat duis cillum esse id elit qui. Cupidatat ipsum
                 commodo nisi sit Lorem tempor commodo dolore.
             </p>
+            <hr/>
+            {localStorage.userToken ? <Protecc /> : (
+                <div>
+                    <p>If you want to see some secret stuff, just sign in!</p>
+                </div>
+            )}
         </div>
     );
 };

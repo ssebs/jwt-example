@@ -4,6 +4,7 @@ import { BrowserRouter, Link, Route } from "react-router-dom";
 import Home from "./components/Home";
 import About from "./components/About";
 import Login from "./components/Login";
+import Logout from "./components/Logout";
 
 const Header = props => {
     return (
@@ -14,7 +15,12 @@ const Header = props => {
             {" | "}
             <Link to="/about">About</Link>
             {" | "}
-            <Link to="/login">Login</Link>
+
+            {localStorage.userToken ? (
+                <Link to="/logout">Logout</Link>
+            ) : (
+                <Link to="/login">Login</Link>
+            )}
         </header>
     );
 };
@@ -35,8 +41,9 @@ export default class App extends Component {
                     <Header title={this.state.title} />
                     <div style={{ maxWidth: "768px", margin: "auto" }}>
                         <Route exact path="/" component={Home} />
-                        <Route exact path="/about" component={About} />
-                        <Route exact path="/login" component={Login} />
+                        <Route path="/about" component={About} />
+                        <Route path="/login" component={Login} />
+                        <Route path="/logout" component={Logout} />
                     </div>
                 </div>
             </BrowserRouter>

@@ -1,11 +1,17 @@
 import React from "react";
 
-const Logout = () => {
+import { withRouter } from "react-router-dom";
+
+const Logout = props => {
+    localStorage.removeItem("userToken");
+    // props.history.push("/");
+    window.location = "/"
+
     return (
         <div>
-            <h1>Logout</h1>
+           
         </div>
     );
 };
 
-export default Logout;
+export default withRouter(Logout);
