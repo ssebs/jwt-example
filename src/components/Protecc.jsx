@@ -10,7 +10,7 @@ const Protecc = () => {
             const tmp = jwt_decode(localStorage.userToken);
             const userName = tmp.identity;
             console.log(userName);
-            fetch(`http://localhost:5000/users/${userName}`, {
+            fetch(`http://localhost:5002/users/${userName}`, {
                 headers: {
                     Authorization: `Bearer ${JSON.parse(
                         localStorage.userToken

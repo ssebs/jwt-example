@@ -10,12 +10,14 @@ const Login = props => {
     });
 
     const validateForm = () => {
-        const { password, password2 } = formContents;
+        // not required for login, just registration
+        // const { password, password2 } = formContents;
 
-        if (password !== password2) {
-            window.alert("Make sure your passwords matches.");
-            return false;
-        }
+        // if (password !== password2) {
+        //     window.alert("Make sure your passwords matches.");
+        //     return false;
+        // }
+
         return true;
     };
 
@@ -25,7 +27,7 @@ const Login = props => {
             return;
         }
         console.log(formContents);
-        fetch("http://127.0.0.1:5000/login", {
+        fetch("http://127.0.0.1:5002/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -64,7 +66,12 @@ const Login = props => {
             <h1>Login</h1>
             <form onSubmit={handleSubmit}>
                 <label>Username: </label>
-                <input type="text" name="username" onChange={handleChange} />
+                <input
+                    type="text"
+                    name="username"
+                    onChange={handleChange}
+                    required
+                />
                 <br />
 
                 <label>Password: </label>
@@ -72,16 +79,19 @@ const Login = props => {
                     type="password"
                     name="password"
                     onChange={handleChange}
+                    required
                 />
                 <br />
 
+                {/* not required for login, just registration */}
+                {/* 
                 <label>Confirm your Password: </label>
                 <input
                     type="password"
                     name="password2"
                     onChange={handleChange}
                 />
-                <br />
+                <br /> */}
 
                 <button type="submit">Submit</button>
             </form>
