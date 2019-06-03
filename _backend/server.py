@@ -111,7 +111,9 @@ def register():
         return jsonify({"Message": "Fill out the form properly..."})
 
     if create_user(username, password):
-        return jsonify(get_user(username))
+        # return jsonify(get_user(username))
+        token = create_access_token(identity=username)
+        return jsonify({"Token": token})
 
 
 # main
